@@ -2,7 +2,7 @@
 '''
  Q) What are Python decorators? How do you use them?
  Q) Explain the concept of generators in Python. How do they differ from iterators?
- Q) Discuss Python's memory management. How does garbage collection work?
+ Q) Discuss Pythons memory management. How does garbage collection work?
  Q) Explain the difference between deep copy and shallow copy.
  Q) How would you handle exceptions in Python? Provide examples of custom exception handling.
 '''
