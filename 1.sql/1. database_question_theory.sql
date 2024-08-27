@@ -27,3 +27,14 @@ Q) Write a SQL query to pivot a table, turning rows into columns.
 Q) How would you write a recursive query to generate a hierarchy from a self-referencing table?
 
 '''
+
+### 10. **Data Integrity and Constraints**
+   - **Question:** What are the different types of constraints in SQL, and how do they ensure data integrity?
+   - **Expected Answer:**
+     - **PRIMARY KEY**: Ensures each record is unique.
+     - **FOREIGN KEY**: Ensures referential integrity between tables.
+     - **UNIQUE**: Ensures all values in a column are unique.
+     - **CHECK**: Ensures that all values in a column meet specific conditions.
+     - **NOT NULL**: Ensures a column cannot have NULL values.
+
+These questions should help assess a candidate's deep understanding of SQL, their ability to optimize and troubleshoot queries, and their familiarity with advanced SQL concepts.
