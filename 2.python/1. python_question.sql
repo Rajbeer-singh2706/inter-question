@@ -7,7 +7,6 @@
  Q) How would you handle exceptions in Python? Provide examples of custom exception handling.
 '''
 
-
 # Python Libraries:
 '''
 Q) What are some key Python libraries used for data processing? How would you use Pandas to handle missing data?
@@ -15,10 +14,9 @@ Q) Describe the use of multiprocessing vs. threading in Python. When would you u
 Q) How would you optimize a Python script for performance?
 '''
 
-
 #Problem Solving:
 '''
-    Write a Python function to reverse a linked list.
-    Implement a Python script that reads a large CSV file in chunks and processes it.
-    Write a function that checks whether a string is a palindrome.
+Q) Write a Python function to reverse a linked list.
+Q) Implement a Python script that reads a large CSV file in chunks and processes it.
+Q) Write a function that checks whether a string is a palindrome.
 '''
