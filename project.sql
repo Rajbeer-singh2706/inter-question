@@ -10,6 +10,7 @@ Q) End to end flow
 Q) Data Size 
 Q) What is data source 
 A) Batch processing vs Real time streaming 
+Q) How schema evoluation is handled
 
 -- 2. Data Storage 
    * Raw 
