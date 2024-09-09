@@ -8,3 +8,6 @@
      Employee who is manager also 
      Employee who has 2 employee only 
 
+6. Merge statement
+7. How to upsert ?
+
