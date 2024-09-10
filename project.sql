@@ -12,9 +12,18 @@ Q) What is data source
 A) Batch processing vs Real time streaming 
 Q) How schema evoluation is handled
 
--- 2. Data Storage 
+-- 2. Data Storage : Storage SIZE + COST 
    * Raw 
+     Q) Type of Files 
+     Q) Size of data 
+     Q) Partition based on 
+     Q) CURD Operation 
+
    * Refind 
+     Q) Type of Files 
+     Q) Size of data 
+     Q) Partition based on 
+     Q) CURD Operation 
    * 
 
 -- 3. Data Transformation 
@@ -25,6 +34,7 @@ Q) What is data destination
 
 
 --- 5. Consumption 
+
 
 Database => Redshift
 ======================
