@@ -78,7 +78,8 @@ This query will compute the 7-day rolling average of sales for each product, con
 # SQL 
 # Q) Write a SQL query to pivot a table, turning rows into columns.
 '''
-To pivot a table in SQL Server, you can use the `PIVOT` operator. This operator allows you to convert rows into columns, typically used for summarizing data.
+To pivot a table in SQL Server, you can use the `PIVOT` operator. This operator allows you to convert rows into columns, 
+typically used for summarizing data.
 
 ### Example Scenario:
 Suppose you have a table named `Sales` with the following structure:
@@ -114,7 +115,8 @@ PIVOT
 ### Explanation:
 - The inner query (`SourceTable`) selects the `SalesPerson`, `Product`, and `Amount` columns.
 - The `PIVOT` operator aggregates the `Amount` values by `SalesPerson` for each `Product`.
-- The `FOR Product IN ([ProductA], [ProductB], [ProductC])` clause specifies the values from the `Product` column that should become new columns.
+- The `FOR Product IN ([ProductA], [ProductB], [ProductC])` clause specifies the values from the `Product` column that should 
+become new columns.
 
 ### Result:
 
