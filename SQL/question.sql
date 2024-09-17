@@ -6,10 +6,139 @@
 3. How would you optimize a slow SQL query?
 3. Discuss the differences between OLAP and OLTP databases.
 4. Find out duplicates in a table?
+
+Q) What are indexes in SQL, and how do they impact query performance? When would you use a composite index?
+A) Indexes speed up data retrieval but can slow down write operations. A composite index is used when you frequently 
+query multiple columns together.
+
 '''
+
+# ### 6. **Handling NULL Values**
+'''
+Q) How do you handle NULL values in SQL? Provide examples of using COALESCE and NULLIF.
+   - **Expected Answer:** 
+     - `COALESCE` returns the first non-NULL value in the list.
+     - `NULLIF` returns NULL if the two compared values are equal.
+
+ - SELECT COALESCE(column1, 'default_value') FROM table;
+ - SELECT NULLIF(column1, column2) FROM table;
+'''
+
+### 2. **Query Optimization**
+'''
+Q) A query you wrote is running slow. What steps would you take to optimize it?
+A) 
+- Review indexes, 
+- check query execution plan, 
+- avoid using 
+   * `SELECT *`, 
+   * use proper joins, 
+   * avoid subqueries in favor of CTEs, and 
+   * consider query rewriting or denormalization if needed.
+'''
+
+
+#Give customer_names of the persons who have not bought 'C'
+'''
+      -- Customers table:
+    -- +-------------+---------------+
+    -- | customer_id | customer_name |
+    -- +-------------+---------------+
+    -- | 1           | Daniel        |
+    -- | 2           | Diana         |
+    -- | 3           | Elizabeth     |
+    -- | 4           | Jhon          |
+    -- +-------------+---------------+
+    -- Orders table:
+    -- +------------+--------------+---------------+
+    -- | order_id   | customer_id  | product_name  |
+    -- +------------+--------------+---------------+
+    -- | 10         |     1        |     A         |
+    -- | 20         |     1        |     B         |
+    -- | 30         |     1        |     D         |
+    -- | 40         |     1        |     C         |
+    
+    -- | 50         |     2        |     A         |
+    
+    -- | 60         |     3        |     A         |
+    -- | 70         |     3        |     B         |
+    -- | 80         |     3        |     D         |
+    
+    -- | 90         |     4        |     C         |
+'''
+
+
+### Top N per Group**
+'''
+sales(product_id, salesperson_id, sales_amount)
+Write a SQL query to find the top 3 sales amounts for each `salesperson_id`.
+
+SELECT
+         salesperson_id,
+         product_id,
+         sales_amount
+     FROM (
+         SELECT
+             salesperson_id,
+             product_id,
+             sales_amount,
+             ROW_NUMBER() OVER (PARTITION BY salesperson_id ORDER BY sales_amount DESC) AS rank
+         FROM sales
+     ) ranked_sales
+     WHERE rank <= 3;
+'''
+### Approach 2 
+## correlated subquery. Here’s how you can write the query:
+'''
+SELECT 
+    s1.salesperson_id, 
+    s1.sales_amount
+FROM 
+    Sales s1
+WHERE 
+    (
+        SELECT COUNT(DISTINCT s2.sales_amount) 
+        FROM Sales s2 
+        WHERE s2.salesperson_id = s1.salesperson_id 
+        AND s2.sales_amount > s1.sales_amount
+    ) < 3
+ORDER BY 
+    s1.salesperson_id, s1.sales_amount DESC;
+
+
+'''
+####
+'''
+Explanation:
+ * Correlated Subquery: The subquery (SELECT COUNT(DISTINCT s2.sales_amount) ...) counts how many distinct sales amounts are 
+ greater than the current row's sales_amount for the same salesperson_id.
+
+ * WHERE ... < 3: The query filters out rows where there are already 3 or more distinct sales amounts greater than the current one. 
+ This ensures that only the top 3 sales amounts are returned.
+ 
+ * ORDER BY s1.salesperson_id, s1.sales_amount DESC: Finally, the results are ordered by salesperson_id and then by sales amount in 
+ descending order.
+
+This approach avoids the use of window functions and directly filters the top 3 sales amounts using a correlated subquery.
+'''
+
+'
 
 #2) Data Aggregation
 #Q) Given a sales(date, product_id,amount) , write a SQL query to calculate the 7-day rolling average of sales for each product.
+### Sample Data:
+
+| Date       | ProductID | Amount | rolling_avg_7_days |
+|------------|-----------|--------|--------------------|
+| 2024-08-01 | 1         | 100    | 100                |
+| 2024-08-02 | 1         | 150    | 125                |
+| 2024-08-03 | 1         | 200    | 150                |
+| 2024-08-04 | 1         | 250    | 175                |
+| 2024-08-05 | 1         | 300    | 200                |
+| 2024-08-06 | 1         | 350    | 225                |
+| 2024-08-07 | 1         | 400    | 250                |
+| 2024-08-08 | 1         | 450    | 300                |
+
 '''
 Q) To calculate the 7-day rolling average of sales for each product, you can use the `WINDOW` function with a range-based 
 window specification. Heres how you can write the SQL query to achieve this:
@@ -29,51 +158,6 @@ ORDER BY
     product_id,
     date;
 ```
-
-### Explanation:
-
-1. **`SELECT Date, ProductID, Amount`**: This selects the `Date`, `ProductID`, and `Amount` columns from the `Sales` table.
-2. **`AVG(Amount) OVER (...) AS rolling_avg_7_days`**: The `AVG()` function calculates the average of the `Amount` values 
-over a specified window of rows. The result is aliased as `rolling_avg_7_days`.
-3. **`PARTITION BY ProductID`**: This clause partitions the data by `ProductID`, so that the rolling average is calculated 
-separately for each product.
-
-4. **`ORDER BY Date`**: This orders the data within each partition by `Date`, which is necessary for calculating the rolling average.
-
-5. **`ROWS BETWEEN 6 PRECEDING AND CURRENT ROW`**: This specifies the window frame for the rolling average calculation. 
-It includes the current row and the 6 preceding rows, resulting in a 7-day window (including the current day).
-
-6. **`FROM Sales`**: This specifies the `Sales` table as the source of the data.
-
-7. **`ORDER BY ProductID, Date`**: This ensures the final result is ordered by `ProductID` and `Date`, making it easier 
-to interpret the rolling averages over time.
-
-### Sample Data:
-
-| Date       | ProductID | Amount | rolling_avg_7_days |
-|------------|-----------|--------|--------------------|
-| 2024-08-01 | 1         | 100    | 100                |
-| 2024-08-02 | 1         | 150    | 125                |
-| 2024-08-03 | 1         | 200    | 150                |
-| 2024-08-04 | 1         | 250    | 175                |
-| 2024-08-05 | 1         | 300    | 200                |
-| 2024-08-06 | 1         | 350    | 225                |
-| 2024-08-07 | 1         | 400    | 250                |
-| 2024-08-08 | 1         | 450    | 300                |
-
-### Optimization Considerations:
-
-1. **Indexes**: 
-   - Ensure there is an index on the `ProductID` and `Date` columns in the `Sales` table. This will help with the partitioning and ordering operations.
-
-2. **Data Size**:
-   - For very large datasets, consider partitioning the table by date ranges or using other techniques to manage large data volumes efficiently.
-
-3. **Query Execution Plan**:
-   - Check the execution plan to make sure that the query is using indexes appropriately and not performing full table scans or other costly operations.
-
-This query will compute the 7-day rolling average of sales for each product, considering the sales data over the specified window of time.
-'''
 
 # SQL 
 # Q) Write a SQL query to pivot a table, turning rows into columns.
@@ -127,3 +211,56 @@ become new columns.
 
 This query transforms the rows into columns based on the `Product` values.
 '''
+
+
+'
+### Problem: 
+You have a table called Sales, which records the sales amount of a product on different dates. 
+sales(salesID,salesDate,salesAmount)
+You want to calculate the 
+  - difference between each sale and the previous one and also calculate the difference between each sale 
+and the next one
+
+#### Sample Table: `Sales`
+
+| SaleID | SaleDate   | SalesAmount |
+|--------|------------|-------------|
+| 1      | 2024-09-10 | 100         |
+| 2      | 2024-09-11 | 150         |
+| 3      | 2024-09-12 | 120         |
+| 4      | 2024-09-13 | 200         |
+| 5      | 2024-09-14 | 180         |
+
+SELECT 
+    SaleID, 
+    SaleDate, 
+    SalesAmount,
+    LAG(SalesAmount, 1) OVER (ORDER BY SaleDate) AS PreviousSalesAmount,
+    LEAD(SalesAmount, 1) OVER (ORDER BY SaleDate) AS NextSalesAmount,
+    SalesAmount - LAG(SalesAmount, 1) OVER (ORDER BY SaleDate) AS DiffWithPrevious,
+    LEAD(SalesAmount, 1) OVER (ORDER BY SaleDate) - SalesAmount AS DiffWithNext
+FROM Sales;
+```
+
+### Explanation:
+- `LAG(SalesAmount, 1)`: Gets the sales amount from the previous row.
+- `LEAD(SalesAmount, 1)`: Gets the sales amount from the next row.
+- `DiffWithPrevious`: The difference between the current sales amount and the previous one.
+- `DiffWithNext`: The difference between the current sales amount and the next one.
+
+### Output:
+
+| SaleID | SaleDate   | SalesAmount | PreviousSalesAmount | NextSalesAmount | DiffWithPrevious | DiffWithNext |
+|--------|------------|-------------|---------------------|-----------------|------------------|--------------|
+| 1      | 2024-09-10 | 100         | NULL                | 150             | NULL             | 50           |
+| 2      | 2024-09-11 | 150         | 100                 | 120             | 50               | -30          |
+| 3      | 2024-09-12 | 120         | 150                 | 200             | -30              | 80           |
+| 4      | 2024-09-13 | 200         | 120                 | 180             | 80               | -20          |
+| 5      | 2024-09-14 | 180         | 200                 | NULL            | -20              | NULL         |
+
+### Notes:
+- The first row doesn't have a previous row, so `LAG()` returns `NULL`.
+- The last row doesn't have a next row, so `LEAD()` returns `NULL`.
+
+####Heres a problem with a solution using both `LAG()` and `LEAD()` window functions in SQL Server. These functions allow you to 
+access data from the previous or next row within the result set, based on an ordering.

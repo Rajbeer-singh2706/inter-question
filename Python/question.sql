@@ -16,7 +16,8 @@
     ➞ Explain the use of the Seaborn library and provide an example of a categorical plot.
     ➞ What is a lambda function in Python and how is it used?
 
-When practicing these Python questions, try using a small sample dataset like the Iris dataset. It's built into many Python libraries. This helps you see how these functions work with actual data.
+When practicing these Python questions, try using a small sample dataset like the Iris dataset. Its 
+built into many Python libraries. This helps you see how these functions work with actual data.
 '''
 
 # PYTHON PS
@@ -68,3 +69,36 @@ def process_chunk(chunk):
 # Replace 'large_file.csv' with the path to your large CSV file
 file_path = 'large_file.csv'
 process_csv_in_chunks(file_path, chunk_size=10000)
+
+
+### 1. **Write a Python function to reverse a linked list.**
+class ListNode:
+    def __init__(self, value=0, next=None):
+        self.value = value
+        self.next = next
+
+def reverse_linked_list(head):
+    prev = None
+    current = head
+    while current:
+        next_node = current.next  # Store next node
+        current.next = prev       # Reverse the current node's pointer
+        prev = current            # Move prev and current one step forward
+        current = next_node
+    return prev  # New head of the reversed list
+
+# Example usage:
+# Creating a linked list: 1 -> 2 -> 3 -> 4
+head = ListNode(1)
+head.next = ListNode(2)
+head.next.next = ListNode(3)
+head.next.next.next = ListNode(4)
+
+# Reversing the linked list
+reversed_head = reverse_linked_list(head)
+
+# Printing the reversed linked list: 4 -> 3 -> 2 -> 1
+current = reversed_head
+while current:
+    print(current.value, end=" -> " if current.next else "\n")
+    current = current.next
