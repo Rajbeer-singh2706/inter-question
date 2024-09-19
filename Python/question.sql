@@ -21,7 +21,6 @@ built into many Python libraries. This helps you see how these functions work wi
 '''
 
 # PYTHON PS
-'''
 ## 1. Find the second largest number 
 ### 2.Group Anagrams
 Write a function that takes a list of strings and groups anagrams together.
@@ -36,21 +35,17 @@ def group_anagrams(strs):
 
 print(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
 # [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]
-'''
 
 
-
-### PYTHON
+###################### PYTHON
 # 1. Find the Longest Substring Without Repeating Characters
-'''
 Problem: Given a string, find the length of the longest substring without repeating characters.
 
 Input: "abcabcbb"
 Output: 3 (The answer is "abc", with a length of 3.)
 Hint: Use a sliding window approach to solve this problem efficiently.
-'''
 
- 
+############################################################################################ 
 ### 2. **Implement a Python script that reads a large CSV file in chunks and processes it.**
 import pandas as pd
 
@@ -82,7 +77,7 @@ def reverse_linked_list(head):
     current = head
     while current:
         next_node = current.next  # Store next node
-        current.next = prev       # Reverse the current node's pointer
+        current.next = prev       # Reverse the current nodes pointer
         prev = current            # Move prev and current one step forward
         current = next_node
     return prev  # New head of the reversed list
