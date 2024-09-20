@@ -20,10 +20,43 @@ When practicing these Python questions, try using a small sample dataset like th
 built into many Python libraries. This helps you see how these functions work with actual data.
 '''
 
-# PYTHON PS
-## 1. Find the second largest number 
-### 2.Group Anagrams
-Write a function that takes a list of strings and groups anagrams together.
+
+-- #PS1 How to sort without inbuilt functions? 
+def bubble_sort(arr):
+ n = len(arr)
+ for i in range(n):
+ for j in range(0, n-i-1):
+ if arr[j] > arr[j+1]:
+ arr[j], arr[j+1] = arr[j+1], arr[j]
+
+
+--PS2. How to find the smallest number in a list? 
+def find_smallest(arr):
+  smallest = arr[0]
+  for num in arr:
+      if num < smallest:
+      smallest = num
+  return smallest
+
+
+--PS3. How to find the smallest value in a dictionary? 
+def find_smallest_in_dict(d):
+    smallest_key = None
+    smallest_value = None
+    for key, value in d.items():
+        if smallest_value is None or value < smallest_value:
+             smallest_key = key
+             smallest_value = value
+    return smallest_key, smallest_value
+
+
+--PS4. Find the second largest number
+
+-- PS5. Group Anagrams
+-- Write a function that takes a list of strings and groups anagrams together.
+-- INPUT    : ["eat", "tea", "tan", "ate", "nat", "bat"]
+-- OUTPUT   :  [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]
+-- WA Test Case as well 
 
 from collections import defaultdict
 def group_anagrams(strs):
@@ -34,19 +67,19 @@ def group_anagrams(strs):
     return list(anagrams.values())
 
 print(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
-# [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]
 
 
-###################### PYTHON
-# 1. Find the Longest Substring Without Repeating Characters
-Problem: Given a string, find the length of the longest substring without repeating characters.
+--PS6. Find the Longest Substring Without Repeating Characters
+-- Problem: Given a string, find the length of the longest substring without repeating characters.
+-- Input: "abcabcbb"
+-- Output: 3 (The answer is "abc", with a length of 3.)
+-- Hint: Use a sliding window approach to solve this problem efficiently.
 
-Input: "abcabcbb"
-Output: 3 (The answer is "abc", with a length of 3.)
-Hint: Use a sliding window approach to solve this problem efficiently.
+def longest_substring():
+   pass 
 
-############################################################################################ 
-### 2. **Implement a Python script that reads a large CSV file in chunks and processes it.**
+
+-- PS7. **Implement a Python script that reads a large CSV file in chunks and processes it.**
 import pandas as pd
 
 def process_csv_in_chunks(file_path, chunk_size=10000):
@@ -66,7 +99,7 @@ file_path = 'large_file.csv'
 process_csv_in_chunks(file_path, chunk_size=10000)
 
 
-### 1. **Write a Python function to reverse a linked list.**
+-- PS8. Write a Python function to reverse a linked list.
 class ListNode:
     def __init__(self, value=0, next=None):
         self.value = value
