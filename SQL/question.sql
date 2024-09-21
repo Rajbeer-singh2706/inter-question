@@ -1,44 +1,13 @@
-# SQL
 
-# A) SQL Basics & Advanced:
-'''
-1. What are window functions in SQL? Provide examples of how they are used.
-3. How would you optimize a slow SQL query?
-3. Discuss the differences between OLAP and OLTP databases.
-4. Find out duplicates in a table?
-
-Q) What are indexes in SQL, and how do they impact query performance? When would you use a composite index?
-A) Indexes speed up data retrieval but can slow down write operations. A composite index is used when you frequently 
-query multiple columns together.
-
-'''
-
-# ### 6. **Handling NULL Values**
-'''
-Q) How do you handle NULL values in SQL? Provide examples of using COALESCE and NULLIF.
-   - **Expected Answer:** 
+-- 1. Handling NULL Values
+-- How do you handle NULL values in SQL? Provide examples of using COALESCE and NULLIF.
      - `COALESCE` returns the first non-NULL value in the list.
      - `NULLIF` returns NULL if the two compared values are equal.
 
  - SELECT COALESCE(column1, 'default_value') FROM table;
  - SELECT NULLIF(column1, column2) FROM table;
-'''
 
-### 2. **Query Optimization**
-'''
-Q) A query you wrote is running slow. What steps would you take to optimize it?
-A) 
-- Review indexes, 
-- check query execution plan, 
-- avoid using 
-   * `SELECT *`, 
-   * use proper joins, 
-   * avoid subqueries in favor of CTEs, and 
-   * consider query rewriting or denormalization if needed.
-'''
-
-
-#Give customer_names of the persons who have not bought 'C'
+-- 2. Give customer_names of the persons who have not bought 'C'
 '''
       -- Customers table:
     -- +-------------+---------------+
@@ -57,21 +26,17 @@ A)
     -- | 20         |     1        |     B         |
     -- | 30         |     1        |     D         |
     -- | 40         |     1        |     C         |
-    
     -- | 50         |     2        |     A         |
-    
     -- | 60         |     3        |     A         |
     -- | 70         |     3        |     B         |
     -- | 80         |     3        |     D         |
-    
     -- | 90         |     4        |     C         |
 '''
 
 
-### Top N per Group**
-'''
-sales(product_id, salesperson_id, sales_amount)
-Write a SQL query to find the top 3 sales amounts for each `salesperson_id`.
+-- 3. Top N per Group
+-- sales(product_id, salesperson_id, sales_amount)
+-- Write a SQL query to find the top 3 sales amounts for each `salesperson_id`.
 
 SELECT
          salesperson_id,
@@ -86,10 +51,9 @@ SELECT
          FROM sales
      ) ranked_sales
      WHERE rank <= 3;
-'''
-### Approach 2 
-## correlated subquery. Here’s how you can write the query:
-'''
+
+--- Approach 2 
+--- ## correlated subquery. Heres how you can write the query:
 SELECT 
     s1.salesperson_id, 
     s1.sales_amount
@@ -106,27 +70,20 @@ ORDER BY
     s1.salesperson_id, s1.sales_amount DESC;
 
 
-'''
-####
-'''
-Explanation:
- * Correlated Subquery: The subquery (SELECT COUNT(DISTINCT s2.sales_amount) ...) counts how many distinct sales amounts are 
- greater than the current row's sales_amount for the same salesperson_id.
+* Correlated Subquery: The subquery (SELECT COUNT(DISTINCT s2.sales_amount) ...) counts how many distinct sales amounts are 
+greater than the current rows sales_amount for the same salesperson_id.
 
- * WHERE ... < 3: The query filters out rows where there are already 3 or more distinct sales amounts greater than the current one. 
- This ensures that only the top 3 sales amounts are returned.
+* WHERE ... < 3: The query filters out rows where there are already 3 or more distinct sales amounts greater than the current one. 
+This ensures that only the top 3 sales amounts are returned.
  
- * ORDER BY s1.salesperson_id, s1.sales_amount DESC: Finally, the results are ordered by salesperson_id and then by sales amount in 
- descending order.
+* ORDER BY s1.salesperson_id, s1.sales_amount DESC: Finally, the results are ordered by salesperson_id and then by sales amount in 
+descending order.
 
 This approach avoids the use of window functions and directly filters the top 3 sales amounts using a correlated subquery.
-'''
 
-'
-
-#2) Data Aggregation
-#Q) Given a sales(date, product_id,amount) , write a SQL query to calculate the 7-day rolling average of sales for each product.
-### Sample Data:
+-- 5. Data Aggregation
+-- Given a sales(date, product_id,amount) , 
+-- write a SQL query to calculate the 7-day rolling average of sales for each product.
 
 | Date       | ProductID | Amount | rolling_avg_7_days |
 |------------|-----------|--------|--------------------|
@@ -139,9 +96,8 @@ This approach avoids the use of window functions and directly filters the top 3 
 | 2024-08-07 | 1         | 400    | 250                |
 | 2024-08-08 | 1         | 450    | 300                |
 
-'''
-Q) To calculate the 7-day rolling average of sales for each product, you can use the `WINDOW` function with a range-based 
-window specification. Heres how you can write the SQL query to achieve this:
+-- 6. To calculate the 7-day rolling average of sales for each product, you can use the `WINDOW` 
+-- function with a range-based window specification. Heres how you can write the SQL query to achieve this:
 
 SELECT
     date,
@@ -157,16 +113,12 @@ FROM
 ORDER BY
     product_id,
     date;
-```
 
-# SQL 
-# Q) Write a SQL query to pivot a table, turning rows into columns.
-'''
-To pivot a table in SQL Server, you can use the `PIVOT` operator. This operator allows you to convert rows into columns, 
-typically used for summarizing data.
 
-### Example Scenario:
-Suppose you have a table named `Sales` with the following structure:
+-- Write a SQL query to pivot a table, turning rows into columns.
+-- To pivot a table in SQL Server, you can use the `PIVOT` operator. This operator allows you to convert 
+-- rows into columns, typically used for summarizing data.
+-- Suppose you have a table named `Sales` with the following structure:
 
 | SalesPerson | Product  | Amount |
 |-------------|----------|--------|
@@ -179,7 +131,6 @@ You want to pivot this table to show the total sales amount by each salesperson 
 
 ### Pivot Query:
 
-```sql
 SELECT SalesPerson, 
        [ProductA], 
        [ProductB], 
@@ -194,9 +145,8 @@ PIVOT
     SUM(Amount)
     FOR Product IN ([ProductA], [ProductB], [ProductC])
 ) AS PivotTable;
-```
 
-### Explanation:
+--### Explanation:
 - The inner query (`SourceTable`) selects the `SalesPerson`, `Product`, and `Amount` columns.
 - The `PIVOT` operator aggregates the `Amount` values by `SalesPerson` for each `Product`.
 - The `FOR Product IN ([ProductA], [ProductB], [ProductC])` clause specifies the values from the `Product` column that should 
@@ -210,18 +160,15 @@ become new columns.
 | Bob         | 120      | NULL     | 130      |
 
 This query transforms the rows into columns based on the `Product` values.
-'''
 
 
-'
-### Problem: 
-You have a table called Sales, which records the sales amount of a product on different dates. 
-sales(salesID,salesDate,salesAmount)
-You want to calculate the 
-  - difference between each sale and the previous one and also calculate the difference between each sale 
-and the next one
+-- Problem: 
+-- You have a table called Sales, which records the sales amount of a product on different dates. 
+-- sales(salesID,salesDate,salesAmount)
+-- You want to calculate the difference between each sale and the previous one and also calculate the 
+-- difference between each sale and the next one
 
-#### Sample Table: `Sales`
+-- Sample Table: `Sales`
 
 | SaleID | SaleDate   | SalesAmount |
 |--------|------------|-------------|
