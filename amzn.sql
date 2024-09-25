@@ -5,11 +5,13 @@ The interview process had 4 rounds, each focused on different aspects of data en
 
 📍 ROUND 1: Data Modeling & SQL
 
-The round started with a quick introduction and questions around my experience with data modeling and SQL. Here are some of the questions:
+The round started with a quick introduction and questions around my experience with data modeling and SQL. 
+Here are some of the questions:
 
-1.⁠ ⁠Write a SQL query to fetch the top 3 highest-earning employees from each department. 
-2.⁠ ⁠How would you design a data model for an e-commerce application (customers, products, orders)? 
-3.⁠ ⁠Explain normalization and denormalization—when would you use each? 
+1. Write a SQL query to fetch the top 3 highest-earning employees from each department. 
+2. How would you design a data model for an e-commerce application (customers, products, orders)? 
+3. Explain normalization and denormalization—when would you use each? 
+
 4.⁠ ⁠What is a composite primary key, and in which scenario would you use it? 
 5.⁠ ⁠How do you handle performance tuning in SQL queries? 
 6.⁠ ⁠How would you implement slowly changing dimensions (SCDs) in a data warehouse?
