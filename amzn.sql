@@ -33,7 +33,6 @@ This round focused heavily on AWS services and how they can be used in data engi
 3.⁠ ⁠Explain how you would handle security and data governance in an AWS data lake setup. 
 4.⁠ ⁠Discuss your experience with AWS Glue, Redshift, and S3. What are the best practices for optimizing storage and retrieval? 
 5.⁠ ⁠How would you implement real-time data ingestion and processing using Kinesis or Kafka?
-Even though I didn’t make it through all the rounds, it was a valuable learning experience.
-⭐ Personal Advice: Amazon’s interviews, especially for Data Engineers, are very scenario-based and focused on real-world applications. I realized that I could have done better if I practiced more on distributed systems and AWS architecture.
-So, if you’re looking for guidance throughout your prep, consider getting help from Bosscoder Academy to receive mentorship from industry professionals.
-Check them here: https://bit.ly/3XU18tj 
+
+⭐ Personal Advice: Amazon’s interviews, especially for Data Engineers, are very scenario-based and focused on real-world 
+applications. I realized that I could have done better if I practiced more on distributed systems and AWS architecture.
