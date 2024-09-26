@@ -56,3 +56,11 @@ Q) tools used
 
 
 -- 5. Testing 
+
+
+
+#### Challenges Faced ########
+in Spark 
+1) Data Skewness
+2) Large Dataset to JOIN 
+3) Out of Memory 

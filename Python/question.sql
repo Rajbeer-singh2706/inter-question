@@ -1,3 +1,6 @@
+# I should start asking the Object orienteation , now onwards we wont ask same question 
+# Keep changing the question on every interview in every topic 
+
 # PYTHON THEORY
 '''
     ➞ What are Python lists and how are they different from tuples?

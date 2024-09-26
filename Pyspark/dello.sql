@@ -17,6 +17,10 @@ Deloitte Pyspark interview questions for Data Engineer 2024.
 15. How do you execute SQL queries on PySpark DataFrames?
 16. What is broadcasting, and how is it useful in PySpark?
 17. Provide an example scenario where broadcasting can significantly improve performance.
-18. Discuss your experience with PySpark's MLlib.
-19. Can you give examples of machine learning algorithms you've implemented using PySpark?
+18. Discuss your experience with PySparks MLlib.
+19. Can you give examples of machine learning algorithms youve implemented using PySpark?
 20. How do you monitor and troubleshoot PySpark jobs?
+
+
+What is AQE 
+What is dynamic Partition Pruning ?
