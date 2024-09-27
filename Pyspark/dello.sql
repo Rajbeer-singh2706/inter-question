@@ -13,8 +13,11 @@ Deloitte Pyspark interview questions for Data Engineer 2024.
 11. Discuss the significance of choosing the right compression codec for your PySpark applications.
 12. How do you deal with missing or null values in PySpark DataFrames?
 13. Are there any specific strategies or functions you prefer for handling missing data?
-14. Describe your experience with PySpark SQL.
-15. How do you execute SQL queries on PySpark DataFrames?
+
+-- #### PYSPARK SQL #######---
+1. Describe your experience with PySpark SQL.
+2.  How do you execute SQL queries on PySpark DataFrames?
+
 16. What is broadcasting, and how is it useful in PySpark?
 17. Provide an example scenario where broadcasting can significantly improve performance.
 18. Discuss your experience with PySparks MLlib.
