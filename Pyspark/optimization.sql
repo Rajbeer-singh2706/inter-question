@@ -32,3 +32,30 @@ and schema evolution, improving both storage and performance.
  1. spark.executor.memory,
  2. spark.memory.fraction, and 
  3. shuffle partitions (spark.sql.shuffle.partitions), to improve job performance and avoid memory and data spill issues.
+
+
+Can you explain Pyspark Optimizations? Here is a detailed document on this.
+
+#PersistingandCaching
+Persisting (or caching) intermediate data can avoid recomputing it across multiple actions or stages.
+ By storing data in memory (or on disk if needed), Spark can quickly access frequently used data without recalculating, 
+ which significantly improves performance, especially for iterative algorithms like machine learning.
+
+from pyspark import StorageLevel
+df.persist(StorageLevel.MEMORY_AND_DISK)
+
+hashtag#Partitioning
+Optimizing data partitioning can greatly enhance performance. Techniques like using repartition to increase the number of partitions for parallelism or coalesce to reduce partitions to avoid shuffling can help balance workload and minimize overhead. Proper partitioning ensures that data is evenly distributed across the cluster, reducing skew and preventing any one node from becoming a bottleneck.
+
+# Repartitioning DataFrame to 10 partitions based on a column
+df_repartitioned = df.repartition(10, "column_name")
+
+
+hashtag#BroadcastVariable
+Broadcast variables allow the distribution of a read-only variable to all nodes in the cluster, which can be more efficient than shipping the variable with every task. This is particularly useful for small lookup tables.
+
+# Broadcasting a variable
+broadcastVar = sc.broadcast([1, 2, 3])
+
+hashtag#SkewHandling
+Data skew occurs when some partitions have significantly more data than others, leading to an imbalance in workload. Spark optimizes skew handling by detecting skewed data and redistributing it more evenly or by using techniques like skewed join optimization, where it partitions skewed data differently to balance the load across nodes.

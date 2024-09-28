@@ -1,3 +1,35 @@
+Clustered vs Non cluster index in SQL
+
+1. Clustered Index ▶ 
+
+Definition: A clustered index determines the physical order of data in a table. The table rows are stored in the same order as the index.
+Table Organization: The data is physically sorted based on the column(s) defined in the clustered index.
+Number of Clustered Indexes: A table can only have one clustered index because the rows can only be stored in one physical order.
+Performance: Since the data is physically stored in order, querying data ranges or retrieving data in an ordered manner (e.g., ORDER BY) is very efficient with a clustered index.
+Primary Key: In most databases, the primary key by default creates a clustered index unless explicitly specified otherwise.
+Storage: The data itself is the index in a clustered index, meaning there’s no separate structure for the clustered index and the data.
+Insert/Update/Delete Impact: Since the physical order of data is maintained, inserting, updating, or deleting rows can be more costly due to potential reordering of rows.
+
+2. Non-Clustered Index ▶ 
+
+Definition: A non-clustered index is a separate structure from the data and contains a sorted list of index keys along with pointers to the actual rows in the table.
+Table Organization: The data is not physically ordered based on the non-clustered index. Instead, the index contains a sorted list of keys that point to the location of the corresponding data.
+Number of Non-Clustered Indexes: A table can have multiple non-clustered indexes (depending on the database system), allowing for different ways to quickly retrieve data.
+Performance: Non-clustered indexes are great for speeding up lookups that do not affect the physical ordering of data (e.g., searching for a specific value or small sets of data). However, they are less efficient for range queries compared to clustered indexes.
+Storage: A non-clustered index takes up additional storage because it creates a separate data structure to store the index key and pointers to the actual table rows.
+Insert/Update/Delete Impact: Modifying data in a table requires updates to the non-clustered indexes, but since the physical order of data is not affected, the overhead is generally lower than with clustered indexes.
+Include Clause: Non-clustered indexes can have included columns, meaning certain columns can be added to the index to avoid looking them up separately, enhancing performance.
+
+When to Use Which:
+
+Clustered Index:
+Use on columns that are frequently used for sorting or range-based queries.
+Typically used for primary keys or columns with unique values (e.g., ID or OrderDate).
+Non-Clustered Index:
+Use on columns that are frequently used in WHERE clauses for exact match lookups (e.g., searching by Email, LastName).
+Useful when you want multiple ways to quickly query the data, without altering the physical data order.
+
+
 In SQL Server, indexes are used to improve the speed of data retrieval. The two most common types of indexes are **Clustered Index** and **Non-Clustered Index**. Here's a detailed explanation of the differences between them:
 
 ### 1. **Clustered Index**:
